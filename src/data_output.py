@@ -7,10 +7,10 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
-def save_data(dataframe, output_path):
+def save_data(df, filepath):
     """Create the output directory and save a DataFrame as an index-free CSV."""
-    path = Path(output_path)
+    path = Path(filepath)
     path.parent.mkdir(parents=True, exist_ok=True)
-    dataframe.to_csv(path, index=False)
-    logger.debug("Saved %d rows to %s", len(dataframe), path)
+    df.to_csv(path, index=False)
+    logger.debug("Saved %d rows to %s", len(df), path)
     return path

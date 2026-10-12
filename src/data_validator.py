@@ -31,12 +31,15 @@ def validate_dataframe(df, required_columns, numeric_columns):
 
     for col in numeric_columns:
         invalid_rows = []
-        for index, value in validated[col].items():
+        for i, value in validated[col].items():
             if pd.notna(value):
                 try:
                     float(value)
                 except ValueError:
-                    invalid_rows.append(index)
+                    logger.warning(
+                        "Invalid numeric value in %s at row index %s: %r", col, i, value
+                    )
+                    invalid_rows.append(i)
 
         if invalid_rows:
             logger.warning(

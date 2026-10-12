@@ -9,26 +9,26 @@ import yaml
 logger = logging.getLogger(__name__)
 
 
-def load_csv(path):
+def load_csv(filepath):
     """Load a CSV file into a DataFrame."""
-    dataframe = pd.read_csv(path)
-    logger.info("Loaded CSV file: %s (%d rows)", path, len(dataframe))
+    dataframe = pd.read_csv(filepath)
+    logger.info("Loaded CSV file: %s (%d rows)", filepath, len(dataframe))
     return dataframe
 
 
-def load_json(path):
+def load_json(filepath):
     """Load a JSON file into a Python object."""
-    with open(path, "r", encoding="utf-8") as file:
+    with open(filepath, "r", encoding="utf-8") as file:
         data = json.load(file)
-    logger.info("Loaded JSON file: %s", path)
+    logger.info("Loaded JSON file: %s", filepath)
     return data
 
 
-def load_yaml(path):
+def load_yaml(filepath):
     """Load a YAML file into a Python object."""
-    with open(path, "r", encoding="utf-8") as file:
+    with open(filepath, "r", encoding="utf-8") as file:
         data = yaml.safe_load(file)
-    logger.info("Loaded YAML file: %s", path)
+    logger.info("Loaded YAML file: %s", filepath)
     return data
 
 
