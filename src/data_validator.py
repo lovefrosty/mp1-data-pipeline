@@ -14,6 +14,10 @@ def validate_dataframe(df, required_columns, numeric_columns):
     required_columns: a list of column names that must exist.
     numeric_columns: a list of column names whose values should be numeric.
     """
+    if not isinstance(df, pd.DataFrame):
+        logger.error("Input data is not a table: got %s", type(df).__name__)
+        raise ValueError(f"Input data is not a table: got {type(df).__name__}")
+
     missing_columns = [
         column for column in required_columns if column not in df.columns
     ]

@@ -56,9 +56,14 @@ def main():
         logger.error("Could not load input or configuration: %s", error)
         sys.exit(1)
 
-    validation_config = config["validation"]
-    required_columns = validation_config["required_columns"]
-    numeric_columns = validation_config["numeric_columns"]
+    try:
+        validation_config = config["validation"]
+        required_columns = validation_config["required_columns"]
+        numeric_columns = validation_config["numeric_columns"]
+    except (KeyError, TypeError) as error:
+        logger.error("Configuration is missing a validation setting: %s", error)
+        sys.exit(1)
+
     rows_before_validation = len(data)
     try:
         data = validate_dataframe(data, required_columns, numeric_columns)
@@ -76,6 +81,9 @@ def main():
         data = process_data(data, config)
     except ValueError as error:
         logger.error("Data processing failed: %s", error)
+        sys.exit(1)
+    except (KeyError, TypeError) as error:
+        logger.error("Configuration is missing a processing setting: %s", error)
         sys.exit(1)
 
     cleaning_report = create_cleaning_report(data_before, data)
